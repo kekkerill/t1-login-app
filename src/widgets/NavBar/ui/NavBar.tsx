@@ -3,6 +3,7 @@ import Button from "../../../shared/ui/Button";
 import { Link } from "react-router-dom";
 import { useAuthStore } from "../../../shared/authStore";
 import { useNavigate } from "react-router-dom";
+import type { AuthState } from "../../../shared/authStore";
 
 const NavBarStyled = styled.div`
   display: flex;
@@ -37,8 +38,8 @@ const routes = [
   },
 ];
 const NavBar = () => {
-  const logout = useAuthStore((s) => s.logout);
-  const isAuth = useAuthStore((s) => s.isAuth);
+  const logout = useAuthStore((s: AuthState) => s.logout);
+  const isAuth = useAuthStore((s: AuthState) => s.isAuth);
   const navigate = useNavigate();
   const handleLogout = async () => {
     await logout();

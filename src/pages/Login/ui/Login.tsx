@@ -7,6 +7,7 @@ import axios from "axios";
 import { CustomLink } from "../../../widgets/NavBar/ui/NavBar";
 import LoginForm from "../../../widgets/LoginForm/ui/LoginForm";
 import type { LoginInputs } from "../../../widgets/LoginForm/ui/LoginForm";
+import type { AuthState } from "../../../shared/authStore";
 
 const LoginStyled = styled.div`
   width: 100%;
@@ -20,7 +21,7 @@ const LoginStyled = styled.div`
 `;
 
 const Login = () => {
-  const login = useAuthStore((s) => s.login);
+  const login = useAuthStore((s: AuthState) => s.login);
   const navigate = useNavigate();
   const mutation = useMutation({
     mutationFn: async (data: LoginInputs) => {
@@ -35,7 +36,7 @@ const Login = () => {
       await login();
       navigate("/");
     },
-    onError: (error) => {
+    onError: (error: unknown) => {
       alert("Login failed");
       console.log(error);
     },
