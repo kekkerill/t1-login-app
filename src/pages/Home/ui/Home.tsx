@@ -53,11 +53,11 @@ interface UserGetDto {
   userAgreement?: boolean;
 }
 
-const fetchUsers = async () => {
+const fetchUsers = async (): Promise<UserGetDto[]> => {
   const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/v1/users`, {
     withCredentials: true,
   });
-  return res.data;
+  return res.data as UserGetDto[];
 };
 
 const deleteUser = async (id: string) => {
@@ -73,7 +73,7 @@ const Home = () => {
     data: users,
     isLoading,
     isError,
-  } = useQuery({
+  } = useQuery<UserGetDto[], Error>({
     queryKey: ["users"],
     queryFn: fetchUsers,
   });
