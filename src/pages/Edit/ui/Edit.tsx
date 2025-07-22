@@ -5,17 +5,18 @@ import axios from "axios";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { useMemo } from "react";
 
-const fetchUser = async (id: string) => {
-  const res = await axios.get(
-    `${import.meta.env.VITE_API_URL}/api/v1/users/${id}`,
-    {
-      withCredentials: true,
-    }
-  );
-  return res.data;
-};
+interface UserGetDto {
+  id: string;
+  name: string;
+  surName: string;
+  fullName: string;
+  email: string;
+  birthDate?: string;
+  telephone?: string;
+  employment?: string;
+  userAgreement?: boolean;
+}
 
-// Добавим тип для данных патча
 interface UserPatchDto {
   name: string;
   surname: string;
@@ -26,13 +27,23 @@ interface UserPatchDto {
   userAgreement: boolean;
 }
 
+const fetchUser = async (id: string): Promise<UserGetDto> => {
+  const res = await axios.get(
+    `${import.meta.env.VITE_API_URL}/api/v1/users/${id}`,
+    {
+      withCredentials: true,
+    }
+  );
+  return res.data as UserGetDto;
+};
+
 const Edit = () => {
   const [searchParams] = useSearchParams();
   const id = searchParams.get("id");
   const navigate = useNavigate();
   const queryClient = useQueryClient();
 
-  const { data: user, isLoading } = useQuery({
+  const { data: user, isLoading } = useQuery<UserGetDto>({
     queryKey: ["user", id],
     queryFn: () => fetchUser(id!),
     enabled: !!id,
@@ -72,7 +83,6 @@ const Edit = () => {
     },
   });
 
-  // Преобразуем данные пользователя для формы
   const initialValues = useMemo(() => {
     if (!user) return undefined;
     return {
