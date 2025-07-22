@@ -19,17 +19,19 @@
 - @tanstack/react-query
 - axios
 
-## Быстрый старт
+## Начало работы
 
-1. Установите зависимости:
+1. Подготовить backend https://github.com/kekkerill/t1-login-api (инструкция в README)
+
+2. Установите зависимости:
    ```
    npm install
    ```
-2. Запустите dev-сервер:
+3. Запустите dev-сервер:
    ```
    npm run dev
    ```
-3. http://localhost:5173
+4. http://localhost:5173
 
 ## Прочее
 
