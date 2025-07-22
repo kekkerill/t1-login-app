@@ -9,6 +9,7 @@ import Login from "../pages/Login/ui/Login";
 import { useEffect } from "react";
 import { useAuthStore } from "../shared/authStore";
 import { useNavigate, useLocation } from "react-router-dom";
+import type { AuthState } from "../shared/authStore";
 
 const AppStyled = styled.div`
   display: flex;
@@ -51,8 +52,8 @@ const LoginLayout = () => {
 };
 
 const AuthGate = ({ children }: { children: React.ReactNode }) => {
-  const checkAuth = useAuthStore((s) => s.checkAuth);
-  const isAuth = useAuthStore((s) => s.isAuth);
+  const checkAuth = useAuthStore((s: AuthState) => s.checkAuth);
+  const isAuth = useAuthStore((s: AuthState) => s.isAuth);
   const navigate = useNavigate();
   const location = useLocation();
   useEffect(() => {

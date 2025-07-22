@@ -14,6 +14,7 @@ interface AuthState {
   checkAuth: () => Promise<void>;
 }
 
+export type { AuthState };
 export const useAuthStore = create<AuthState>((set) => ({
   isAuth: false,
   user: null,
@@ -37,7 +38,7 @@ export const useAuthStore = create<AuthState>((set) => ({
           withCredentials: true,
         }
       );
-      set({ isAuth: true, user: res.data });
+      set({ isAuth: true, user: res.data as User });
     } catch {
       set({ isAuth: false, user: null });
     }
